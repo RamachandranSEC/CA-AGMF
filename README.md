@@ -40,6 +40,44 @@ This verifies the full forward pass works correctly with synthetic data:
 ```bash
 python3 inference.py
 ```
+```bash
+Expected output:
+```bash
+=======================================================
+  CA-AGMF — Demo Forward Pass (synthetic data)
+=======================================================
+  Device: CPU
+
+  Inputs:
+    frames:  (2, 3, 224, 224)
+    audio:   (2, 1, 168, 128)
+    beacon:  (2, 6)
+    context: (2, 3)
+
+  Outputs:
+
+  Sample 1 (Night+rain):
+    EV detected:  False
+    Probability:  0.4877
+    Gate weights: g1(vis)=0.3056  g2(aud)=0.3911  g3(v2x)=0.3033
+
+  Sample 2 (Clear day):
+    EV detected:  False
+    Probability:  0.4893
+    Gate weights: g1(vis)=0.2884  g2(aud)=0.3994  g3(v2x)=0.3121
+
+  Parameter counts:
+    visual_encoder           :   24,558,144
+    audio_encoder            :    1,832,672
+    v2x_encoder              :      174,400
+    context_encoder          :            0
+    attention_gate           :           59
+    detection_head           :      131,585
+    TOTAL                    :   26,696,860
+    gate_%_of_total          :     0.000221
+
+=======================================================
+```
 Step 6 — Prepare the dataset
 ```bash
 data/

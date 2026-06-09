@@ -12,21 +12,21 @@ Adaptive Context-Aware Multimodal Fusion for Robust Emergency Vehicle Detection 
 - Real-time emergency vehicle detection
 
 ## Installation
-Step 1 — Prerequisites
+Step 1: Prerequisites
 ```bash
 python3 --version
 ```
-Step 2 — Extract the zip
+Step 2: Extract the zip
 ```bash
 unzip caagmf_implementation.zip
 cd caagmf
 ```
-Step 3 — Create a virtual environment
+Step 3: Create a virtual environment
 ```bash
 python3 -m venv caagmf_env
 caagmf_env\Scripts\activate
 ```
-Step 4 — Install dependencies
+Step 4: Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
@@ -34,7 +34,7 @@ For GPU support
 ```bash
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 ```
-Step 5 — Run the demo (no data needed)
+Step 5: Run the demo (no data needed)
 This verifies the full forward pass works correctly with synthetic data:
 ```bash
 python3 inference.py
@@ -77,7 +77,7 @@ Expected output:
 
 =======================================================
 ```
-Step 6 — Prepare the dataset
+Step 6: Prepare the dataset
 ```bash
 data/
 ├── train/
@@ -115,7 +115,7 @@ import numpy as np
 beacon = np.array([1.0, 0.72, 0.45, 1.0, 0.38, 0.12], dtype=np.float32)
 np.save("beacons/ev_001.npy", beacon)
 ```
-Step 7 — Train the model
+Step 7: Train the model
 ```bash
 from train import train
 
@@ -142,7 +142,7 @@ Epoch 002/100 | Train loss: 0.3614  F1: 0.8892 | Val loss: 0.3201  F1: 0.9014 | 
 ```bash
 Checkpoints are saved to ./checkpoints/best_caagmf.pth
 ```
-Step 8 — Evaluate on adverse conditions
+Step 8: Evaluate on adverse conditions
 ```bash
 from train import train
 from dataset import build_dataloaders
@@ -165,7 +165,7 @@ for cond in conditions:
     print(f"{cond:<16} F1: {m['f1']:.4f}  Acc: {m['accuracy']:.4f}  "
           f"Gate: {m['gate_weights']}")
 ```
-Step 9 — Run inference on a single sample
+Step 9: Run inference on a single sample
 ```bash
 import torch
 from inference import CAAgmfInference
@@ -191,7 +191,7 @@ print(result)
 #   "gate_weights": {"g1_visual": 0.18, "g2_audio": 0.48, "g3_v2x": 0.34}
 # }
 ```
-Step 10 — Run the ablation study
+Step 10: Run the ablation study
 ```bash
 from inference import AblationStudy
 from dataset import build_dataloaders
@@ -208,7 +208,7 @@ results = ablation.run(
 ```
 ## Dataset
 ```bash
-BDD100K — Berkeley DeepDrive
-https://bdd-data.berkeley.edu/
+Visual Modality
+BDD100K — Berkeley DeepDrive - https://bdd-data.berkeley.edu/
 
 ```

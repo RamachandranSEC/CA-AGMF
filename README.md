@@ -206,5 +206,9 @@ results = ablation.run(
     checkpoint_path = "checkpoints/best_caagmf.pth",
 )
 ```
-## Model Architecture
-![Architecture](docs/architecture.png)
+## Dataset
+```bash
+BDD100K — Berkeley DeepDrive
+https://bdd-data.berkeley.edu/
+
+```

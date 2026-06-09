@@ -17,12 +17,16 @@ Step 1 — Prerequisites
 ```bash
 python3 --version
 ```
-
 Step 2 — Extract the zip
-'''bash
+```bash
 unzip caagmf_implementation.zip
 cd caagmf
-
+```
+Step 3 — Create a virtual environment
+```bash
+python3 -m venv caagmf_env
+caagmf_env\Scripts\activate
+```
 ## Dataset
 Describe the dataset used in the study.
 

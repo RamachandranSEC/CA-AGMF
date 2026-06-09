@@ -107,8 +107,105 @@ mfcc  = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
 stack = np.vstack([mfcc, librosa.power_to_db(mel)])  # (168, T)
 np.save("audio/ev_001.npy", stack.astype(np.float32))
 ```
+Preparing beacon .npy files:
+```bash
+import numpy as np
 
+# [v_type, v_speed, v_heading, priority_flag, distance, latency]
+# All values min-max normalised to [0, 1]
+beacon = np.array([1.0, 0.72, 0.45, 1.0, 0.38, 0.12], dtype=np.float32)
+np.save("beacons/ev_001.npy", beacon)
+```
+Step 7 — Train the model
+```bash
+from train import train
 
+results = train({
+    "data_root":  "./data",
+    "epochs":     100,
+    "batch_size": 32,
+    "device":     "cuda",   # or "cpu"
+    "lr":         1e-4,
+    "patience":   15,
+})
+```
+Or run directly from terminal:
+```bash
+python3 train.py
+```
+Training output per epoch:
+```bash
+Epoch 001/100 | Train loss: 0.4821  F1: 0.8134 | Val loss: 0.4102  F1: 0.8467 | Gate: [0.48, 0.33, 0.19] | 42.3s
+Epoch 002/100 | Train loss: 0.3614  F1: 0.8892 | Val loss: 0.3201  F1: 0.9014 | Gate: [0.51, 0.30, 0.19] | 41.8s
+  ✓ New best val F1: 0.9014 — checkpoint saved
+...
+```
+```bash
+Checkpoints are saved to ./checkpoints/best_caagmf.pth
+```
+Step 8 — Evaluate on adverse conditions
+```bash
+from train import train
+from dataset import build_dataloaders
+from losses import WeightedBCELoss
+from model import CAAGMF
+import torch
 
+device = "cuda"
+model  = CAAGMF(pretrained_visual=False).to(device)
+ckpt   = torch.load("checkpoints/best_caagmf.pth", map_location=device)
+model.load_state_dict(ckpt["model_state"])
+
+loaders   = build_dataloaders("./data")
+criterion = WeightedBCELoss()
+
+conditions = ["clear", "nighttime", "rain", "fog", "high_noise"]
+for cond in conditions:
+    from train import evaluate
+    m = evaluate(model, loaders[f"test_{cond}"], criterion, device)
+    print(f"{cond:<16} F1: {m['f1']:.4f}  Acc: {m['accuracy']:.4f}  "
+          f"Gate: {m['gate_weights']}")
+```
+Step 9 — Run inference on a single sample
+```bash
+import torch
+from inference import CAAgmfInference
+
+engine = CAAgmfInference(
+    checkpoint_path = "checkpoints/best_caagmf.pth",
+    device          = "cuda",
+    threshold       = 0.5,
+)
+
+# Load your sample
+frame   = torch.randn(1, 3, 640, 640)   # replace with real frame
+audio   = torch.randn(1, 1, 168, 128)   # replace with real audio
+beacon  = torch.rand(1, 6)              # replace with real beacon
+context = torch.tensor([[0.15, 0.80, 0.30]])  # [luminance, weather, SNR]
+
+result = engine.predict(frame, audio, beacon, context)
+print(result)
+# {
+#   "ev_detected":  True,
+#   "probability":  0.9412,
+#   "latency_ms":   112.3,
+#   "gate_weights": {"g1_visual": 0.18, "g2_audio": 0.48, "g3_v2x": 0.34}
+# }
+```
+Step 10 — Run the ablation study
+```bash
+from inference import AblationStudy
+from dataset import build_dataloaders
+
+loaders = build_dataloaders("./data")
+ablation = AblationStudy(
+    base_config = {"feature_dim": 512, "alpha": 3.0},
+    device      = "cuda",
+)
+results = ablation.run(
+    test_loader     = loaders["test_clear"],
+    checkpoint_path = "checkpoints/best_caagmf.pth",
+)
+```
 ## Model Architecture
 ![Architecture](docs/architecture.png)

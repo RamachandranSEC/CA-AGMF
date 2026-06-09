@@ -19,6 +19,12 @@ Describe the dataset used in the study.
 ![Architecture](docs/architecture.png)
 
 ## Installation
-
+Step 1 — Prerequisites
 ```bash
-pip install -r requirements.txt
+python3 --version
+Step 2 — Extract the zip
+```bash
+unzip caagmf_implementation.zip
+cd caagmf
+
+

@@ -1,9 +1,8 @@
-# Context-Aware Attention-Gated Multimodal Fusion (CAAG-MF)
+# Adaptive Context-Aware Multimodal Fusion for Robust Emergency Vehicle Detection in Smart Intersections
 
 ## Overview
 This repository contains the implementation of the proposed
-Context-Aware Attention-Gated Multimodal Fusion framework for
-Emergency Vehicle Detection under adverse environmental conditions.
+Adaptive Context-Aware Multimodal Fusion for Robust Emergency Vehicle Detection in Smart Intersections.
 
 ## Features
 - Visual feature extraction

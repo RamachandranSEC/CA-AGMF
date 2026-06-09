@@ -23,7 +23,7 @@ Step 1 — Prerequisites
 ```bash
 python3 --version
 Step 2 — Extract the zip
-</> Bash
+''''bash
 unzip caagmf_implementation.zip
 cd caagmf
 

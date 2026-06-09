@@ -12,19 +12,18 @@ Emergency Vehicle Detection under adverse environmental conditions.
 - Attention-gated multimodal fusion
 - Real-time emergency vehicle detection
 
+## Installation
+Step 1 — Prerequisites
+```bash
+python3 --version
+
+Step 2 — Extract the zip
+'''bash
+unzip caagmf_implementation.zip
+cd caagmf
+
 ## Dataset
 Describe the dataset used in the study.
 
 ## Model Architecture
 ![Architecture](docs/architecture.png)
-
-## Installation
-Step 1 — Prerequisites
-```bash
-python3 --version
-Step 2 — Extract the zip
-''''bash
-unzip caagmf_implementation.zip
-cd caagmf
-
-

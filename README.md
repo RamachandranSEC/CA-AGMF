@@ -213,6 +213,22 @@ BDD100K — Berkeley DeepDrive - https://bdd-data.berkeley.edu/
 ------------------------------------------------------------
 Audio Modality
 ESC-50 — Environmental Sound Classification
-
-🔗 https://github.com/karolpiczak/ESC-50
+https://github.com/karolpiczak/ESC-50
+------------------------------------------------------------
+UrbanSound8K — Urban ambient sounds (negative samples)
+https://urbansounddataset.weebly.com/urbansound8k.html
+------------------------------------------------------------
+SIREN Dataset
+https://zenodo.org/record/3519845
+------------------------------------------------------------
+Weather Classification (Context Encoder)
+ACDC — Adverse Conditions Dataset
+https://acdc.vision.ee.ethz.ch/
+------------------------------------------------------------
+V2X Simulation
+SUMO — Simulation of Urban Mobility
+https://sumo.dlr.de/docs/Downloads.php
+------------------------------------------------------------
+ns-3 Network Simulator
+https://www.nsnam.org/releases/
 ```

@@ -3,4 +3,4 @@
 python3 --version
 # Step 2
 unzip caagmf_implementation.zip
-cd caagmf
+\ cd caagmf

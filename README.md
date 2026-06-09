@@ -16,6 +16,7 @@ Emergency Vehicle Detection under adverse environmental conditions.
 Step 1 — Prerequisites
 ```bash
 python3 --version
+```
 
 Step 2 — Extract the zip
 '''bash

@@ -40,6 +40,19 @@ This verifies the full forward pass works correctly with synthetic data:
 ```bash
 python3 inference.py
 ```
+Step 6 — Prepare the dataset
+```bash
+data/
+├── train/
+│   ├── index.txt
+│   ├── frames/        ← .jpg images
+│   ├── audio/         ← .npy MFCC+mel arrays (168, T)
+│   └── beacons/       ← .npy beacon vectors (6,)
+├── val/
+│   └── index.txt
+└── test/
+    └── index.txt
+```
 
 ## Dataset
 Describe the dataset used in the study.

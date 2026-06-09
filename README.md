@@ -91,9 +91,24 @@ data/
 └── test/
     └── index.txt
 ```
+Each index.txt line follows this format:
+```bash
+frames/ev_001.jpg  audio/ev_001.npy  beacons/ev_001.npy  1
+frames/bg_001.jpg  audio/bg_001.npy  beacons/bg_001.npy  0
+```
+Preparing audio .npy files from raw audio:
+```bash
+import librosa
+import numpy as np
 
-## Dataset
-Describe the dataset used in the study.
+y, sr = librosa.load("siren.wav", sr=22050)
+mel   = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
+mfcc  = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
+stack = np.vstack([mfcc, librosa.power_to_db(mel)])  # (168, T)
+np.save("audio/ev_001.npy", stack.astype(np.float32))
+```
+
+
 
 ## Model Architecture
 ![Architecture](docs/architecture.png)
